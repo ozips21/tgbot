@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Пример Telegram WebApp</title>
+
+  <!-- Немного стилей для красоты -->
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #fafafa;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin: 0 0 16px;
+    }
+    p {
+      margin: 0 0 24px;
+      color: #333;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Привет!</h1>
+    <p>
+      Это пример Telegram Web App. <br />
+      Ты сейчас смотришь мини-приложение прямо внутри Телеграма.
+    </p>
+  </div>
+
+  <script>
+    // Инициализируем объект Telegram WebApp
+    const tg = window.Telegram.WebApp;
+
+    // Расширяем WebApp на всю доступную высоту
+    tg.expand();
+
+    // Настраиваем главную кнопку внизу экрана (MainButton)
+    tg.MainButton.text = "Закрыть";
+    tg.MainButton.show();
+
+    // При нажатии на кнопку — закрываем WebApp
+    tg.MainButton.onClick(() => {
+      tg.close();
+    });
+  </script>
+</body>
+</html>
