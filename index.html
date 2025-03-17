@@ -2,61 +2,103 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Пример Telegram WebApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пример Web App</title>
 
-  <!-- Немного стилей для красоты -->
   <style>
+    /* Стили, чтобы страница выглядела приятно на мобильных */
     body {
       margin: 0;
+      padding: 0;
       font-family: sans-serif;
+      background: linear-gradient(135deg, #8EC5FC 0%, #E0C3FC 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      background: #fafafa;
     }
-    .container {
+
+    header {
+      background-color: rgba(255, 255, 255, 0.3);
+      width: 100%;
+      padding: 12px 0;
       text-align: center;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
     }
-    h1 {
-      margin: 0 0 16px;
-    }
-    p {
-      margin: 0 0 24px;
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
       color: #333;
-      line-height: 1.5;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .fake-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .fake-button {
+      padding: 15px;
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #444;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+    .fake-button:hover {
+      background-color: #f0f0f0;
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>Привет!</h1>
-    <p>
-      Это пример Telegram Web App. <br />
-      Ты сейчас смотришь мини-приложение прямо внутри Телеграма.
+  <header>
+    <h1>Моё мини-приложение</h1>
+  </header>
+  <main>
+    <p style="text-align: center;">
+      Это пример Telegram WebApp. <br />
+      Страница адаптирована под мобильные экраны.<br />
+      Нажмите пару «фейковых» кнопок ниже — они не делают ничего, просто для красоты:
     </p>
-  </div>
+    <div class="fake-buttons">
+      <button class="fake-button" onclick="alert('Нажата кнопка 1!')">Кнопка 1</button>
+      <button class="fake-button" onclick="alert('Нажата кнопка 2!')">Кнопка 2</button>
+    </div>
+  </main>
 
   <script>
-    // Инициализируем объект Telegram WebApp
-    const tg = window.Telegram.WebApp;
+    // Инициализация объекта Telegram WebApp (если в Telegram)
+    const tg = window.Telegram.WebApp || null;
 
-    // Расширяем WebApp на всю доступную высоту
-    tg.expand();
+    if (tg) {
+      // Расширяем WebApp на всю высоту
+      tg.expand();
 
-    // Настраиваем главную кнопку внизу экрана (MainButton)
-    tg.MainButton.text = "Закрыть";
-    tg.MainButton.show();
-
-    // При нажатии на кнопку — закрываем WebApp
-    tg.MainButton.onClick(() => {
-      tg.close();
-    });
+      // Настраиваем основную кнопку внизу (MainButton)
+      tg.MainButton.text = "Закрыть";
+      tg.MainButton.show();
+      tg.MainButton.onClick(() => {
+        // При нажатии закрываем WebApp
+        tg.close();
+      });
+    }
   </script>
 </body>
 </html>
